@@ -10,46 +10,16 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      tasksToDo: [],
-      completedTasks: [],
       enter: false
     }
     this.enter = this.enter.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.completeTask = this.completeTask.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
   }
   enter(e){
     this.setState({
       enter: true
     })
   }
-  handleSubmit(e, task){
-    e.preventDefault();
-    const newTask = task.trim();
-    if(newTask){
-      const newTaskList = [...this.state.tasksToDo, newTask]
-      this.setState({
-        tasksToDo: newTaskList
-      })
-    }
-  }
-  completeTask(task, i){
-    let newTasksState = [...this.state.tasksToDo];
-    const doneTask = newTasksState.splice(i,1);
-    let newCompletedTasksState = [...this.state.completedTasks, doneTask] 
-    this.setState({
-      tasksToDo: newTasksState,
-      completedTasks: newCompletedTasksState
-    })
-  }
-  deleteTask(task , i){
-    let newTasksState = [...this.state.tasksToDo];
-    newTasksState.splice(i,1);
-    this.setState({
-      tasksToDo: newTasksState,
-    })
-  }
+  
   render() {
     return (
       <div className="App">
@@ -63,15 +33,15 @@ class App extends Component {
                   onClick={this.enter}
                   
           >
-            ENTER THE BEST TO DO LIST APP EVER MADE
+            ENTER THE BEST TO DO LIST APP WITH REACT REDUX EVER MADE
           </button>
         </div>
         <div className={`${this.state.enter ? 'show' : 'hide'}`}>
-          <TaskForm handleSubmit={this.handleSubmit}/>
+          <TaskForm/>
           <div style={{marginTop: '20px'}}>------------------------------------------------------------------------------------------</div>
-          <TaskList tasksToDo={this.state.tasksToDo} completeTask={this.completeTask} deleteTask={this.deleteTask}/>
+          <TaskList/>
           <div style={{marginTop: '20px'}}>------------------------------------------------------------------------------------------</div>
-          <CompletedTasks completedTasks={this.state.completedTasks}/>
+          <CompletedTasks/>
         </div>
       </div>
     );
